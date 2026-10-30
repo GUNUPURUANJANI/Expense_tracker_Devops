@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Smart Expense Tracker
 
 Full-stack learning project: HTML, CSS, JavaScript, Node.js, Express and MongoDB.
@@ -30,3 +31,6 @@ Full-stack learning project: HTML, CSS, JavaScript, Node.js, Express and MongoDB
 6. Open http://localhost:5000 and create an account.
 
 Keep the terminal running while using the app. Do not share `.env`. This is a learning project; before public deployment, add rate limiting, stricter validation, HTTPS and production-grade session protections.
+=======
+# Expense_tracker_Devops
+>>>>>>> 1c5abb70fb01e1bd7d2a91d896194b14b329642f
