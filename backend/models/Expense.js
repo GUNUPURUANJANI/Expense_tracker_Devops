@@ -1,0 +1,2 @@
+const mongoose=require("mongoose");
+module.exports=mongoose.model("Expense",new mongoose.Schema({user:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true,index:true},title:{type:String,required:true,trim:true},amount:{type:Number,required:true,min:0.01},category:{type:String,required:true,enum:["Food","Transport","Shopping","Bills","Education","Health","Entertainment","Other"]},date:{type:Date,default:Date.now},notes:{type:String,trim:true,maxlength:300,default:""}},{timestamps:true}));

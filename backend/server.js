@@ -1,0 +1,3 @@
+require("dotenv").config();const express=require("express"),path=require("path"),connectDB=require("./config/db"),authRoutes=require("./routes/authRoutes"),expenseRoutes=require("./routes/expenseRoutes");
+const app=express();app.use(express.json());app.use(express.static(path.join(__dirname,"..","frontend")));app.get("/api/health",(q,s)=>s.json({status:"ok"}));app.use("/api/auth",authRoutes);app.use("/api/expenses",expenseRoutes);app.get("*",(q,s)=>s.sendFile(path.join(__dirname,"..","frontend","index.html")));
+const PORT=process.env.PORT||5000;connectDB().then(()=>app.listen(PORT,()=>console.log(`Running at http://localhost:${PORT}`))).catch(e=>{console.error("Startup error:",e.message);process.exit(1);});
