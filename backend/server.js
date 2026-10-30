@@ -1,3 +1,45 @@
-require("dotenv").config();const express=require("express"),path=require("path"),connectDB=require("./config/db"),authRoutes=require("./routes/authRoutes"),expenseRoutes=require("./routes/expenseRoutes");
-const app=express();app.use(express.json());app.use(express.static(path.join(__dirname,"..","frontend")));app.get("/api/health",(q,s)=>s.json({status:"ok"}));app.use("/api/auth",authRoutes);app.use("/api/expenses",expenseRoutes);app.get("*",(q,s)=>s.sendFile(path.join(__dirname,"..","frontend","index.html")));
-const PORT=process.env.PORT||5000;connectDB().then(()=>app.listen(PORT,()=>console.log(`Running at http://localhost:${PORT}`))).catch(e=>{console.error("Startup error:",e.message);process.exit(1);});
+
+require("dotenv").config();
+
+const express = require("express");
+const path = require("path");
+
+const connectDB = require("./config/db");
+const authRoutes = require("./routes/authRoutes");
+const expenseRoutes = require("./routes/expenseRoutes");
+
+const app = express();
+
+app.use(express.json());
+
+app.use(express.static(path.join(__dirname, "..", "frontend")));
+
+app.get("/api/health", (req, res) => {
+    res.json({ status: "ok" });
+});
+
+app.use("/api/auth", authRoutes);
+app.use("/api/expenses", expenseRoutes);
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "frontend", "index.html"));
+});
+
+// Export app for automated testing
+module.exports = app;
+
+// Start server only when executed directly
+if (require.main === module) {
+    const PORT = process.env.PORT || 5000;
+
+    connectDB()
+        .then(() => {
+            app.listen(PORT, () => {
+                console.log(`Running at http://localhost:${PORT}`);
+            });
+        })
+        .catch(error => {
+            console.error("Startup error:", error.message);
+            process.exit(1);
+        });
+}

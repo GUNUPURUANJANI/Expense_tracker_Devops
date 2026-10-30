@@ -29,6 +29,18 @@ pipeline {
             }
         }
 
+        
+stage('Automated Testing') {
+    steps {
+        echo 'Running automated API tests'
+
+        dir('backend') {
+            bat 'npm test'
+        }
+    }
+}
+
+
         stage('Build') {
             steps {
                 echo 'Smart Expense Tracker build validation completed'
